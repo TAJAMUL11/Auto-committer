@@ -1,0 +1,47 @@
+name: Daily Auto-Committer
+
+on:
+  schedule:
+    - cron: '20 17 * * *' # Runs daily at 17:20 UTC (10:50 PM IST)
+  workflow_dispatch:      # Allows manual trigger from GitHub UI
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  auto-commit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Fetch all history to check today's commits accurately
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Run Auto-Commit Script
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: node auto-commit.js
+
+      - name: Push Changes
+        run: |
+          # Only push if there are local commits that aren't on remote
+          git push origin main || echo "No changes to push or push failed"
+
+      - name: Notify on Failure
+        if: failure()
+        run: |
+          gh issue create --title "⚠️ Auto-Committer Workflow Failed" --body "Hey @${{ github.actor }}, the daily auto-commit workflow failed to run or push commits today. Please check the Action logs: https://github.com/${{ github.repository }}/actions"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
