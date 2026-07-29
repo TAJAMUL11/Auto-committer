@@ -18,6 +18,12 @@ To ensure the commits do not break any builds or tests:
 ### API Configuration
 - We use the `v1beta` endpoint with `gemini-3.6-flash` (`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent`) because older model versions (such as `1.5-flash` or `2.5-flash`) are no longer available or supported for newer API keys.
 
+## Helper Utilities
+
+The repository includes modular helper utilities in the `utils/` directory:
+- `utils/dateFormatter.js`: Formats dates into `YYYY-MM-DD` strings according to specific timezones.
+- `utils/logger.js`: Standardized timestamped logging helpers (`logInfo`, `logWarn`, `logError`).
+
 ## Local Development & Testing
 
 You can run the script locally to verify its functionality.
@@ -25,6 +31,9 @@ You can run the script locally to verify its functionality.
 ```bash
 # Set your Gemini API key in your terminal/environment
 $env:GEMINI_API_KEY="your-gemini-key"
+
+# Run utility unit tests
+node utils/dateFormatter.test.js
 
 # Run the auto-committer script
 node auto-commit.js
