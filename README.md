@@ -15,6 +15,19 @@ If no commits have been pushed by **9:00 PM IST (15:30 UTC)** on a given day, th
 5. **Auto-Commit**: The script applies these changes one by one, making separate git commits with meaningful messages.
 6. **Push**: The commits are pushed back to the `main` branch.
 
+## Project Structure
+
+```
+.
+├── auto-commit.js         # Core script for commit verification & LLM code generation
+├── docs.md                # Developer documentation and design decisions
+├── README.md              # Project overview and setup guide
+└── utils/                 # Modular helper utilities and tests
+    ├── dateFormatter.js   # Timezone-aware date string formatting utilities
+    ├── dateFormatter.test.js # Test suite for date formatting utilities
+    └── logger.js          # Timestamped logging helper functions
+```
+
 ## Setup Instructions
 
 1. **Get a Gemini API Key**:
