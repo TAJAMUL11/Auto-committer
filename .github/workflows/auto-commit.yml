@@ -2,7 +2,7 @@ name: Daily Auto-Committer
 
 on:
   schedule:
-    - cron: '20 17 * * *' # Runs daily at 17:20 UTC (10:50 PM IST)
+    - cron: '30 15 * * *' # Runs daily at 15:30 UTC (9:00 PM IST)
   workflow_dispatch:      # Allows manual trigger from GitHub UI
 
 permissions:

@@ -112,7 +112,7 @@ function callGemini(prompt) {
     const options = {
       hostname: 'generativelanguage.googleapis.com',
       port: 443,
-      path: `/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
+      path: `/v1beta/models/gemini-3.6-flash:generateContent?key=${apiKey}`,
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -162,9 +162,20 @@ async function run() {
     username = githubRepository.split('/')[0];
   } else {
     try {
-      username = execSync('git config user.name', { encoding: 'utf-8' }).trim();
+      const remoteUrl = execSync('git remote get-url origin', { encoding: 'utf-8' }).trim();
+      const match = remoteUrl.match(/github\.com[/:]([^/]+)\/[^/]+/);
+      if (match) {
+        username = match[1];
+      }
     } catch (e) {
-      username = process.env.GITHUB_USERNAME;
+      // Fallback if git remote command fails
+    }
+    if (!username) {
+      try {
+        username = execSync('git config user.name', { encoding: 'utf-8' }).trim();
+      } catch (e) {
+        username = process.env.GITHUB_USERNAME;
+      }
     }
   }
 
@@ -208,7 +219,7 @@ You are an expert software developer helping to maintain a repository with high-
 Here is the current state of the repository:
 ${JSON.stringify(context, null, 2)}
 
-Your task is to generate 3 to 4 sequential, meaningful, and completely non-breaking code/documentation improvements.
+Your task is to generate 4 to 5 sequential, meaningful, and completely non-breaking code/documentation improvements.
 Examples of good changes:
 - Adding useful helper/utility modules (e.g., string validators, date formatters, array utilities).
 - Adding simple unit tests or utility test suites.
@@ -227,7 +238,7 @@ You MUST return a JSON object in this exact format:
 }
 
 Ensure:
-1. The changes list has exactly 3 or 4 elements.
+1. The changes list has exactly 4 or 5 elements.
 2. The changes are sequential (later changes can build upon earlier changes in the list).
 3. The code is clean, syntax-error free, and does not break any existing code.
 4. Return ONLY the JSON object, conforming to responseMimeType "application/json". Do not wrap it in markdown blocks.

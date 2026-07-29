@@ -2,16 +2,16 @@
 
 An intelligent, cloud-based auto-committer that automatically keeps your GitHub contributions green and active. 
 
-If no commits have been pushed by **10:50 PM IST (17:20 UTC)** on a given day, this tool wakes up, calls the Gemini API to generate 3-4 meaningful, non-breaking improvements (such as documentation enhancements, utility helpers, unit tests, or code comments), and commits/pushes them automatically.
+If no commits have been pushed by **9:00 PM IST (15:30 UTC)** on a given day, this tool wakes up, calls the Gemini API to generate 4-5 meaningful, non-breaking improvements (such as documentation enhancements, utility helpers, unit tests, or code comments), and commits/pushes them automatically.
 
 ## How It Works
 
-1. **Scheduled Run**: A GitHub Actions workflow runs every day at 17:20 UTC (10:50 PM IST).
+1. **Scheduled Run**: A GitHub Actions workflow runs every day at 15:30 UTC (9:00 PM IST).
 2. **Commit Check**: The tool queries the repository's commit history for the current day in the `Asia/Kolkata` timezone.
 3. **Check Condition**:
    - If commits exist for the day, it logs the condition and exits.
    - If no commits exist, it requests code changes from the Gemini API.
-4. **Change Generation**: Gemini generates 3-4 separate, sequential, and safe code enhancements (utilities, tests, or documentation).
+4. **Change Generation**: Gemini generates 4-5 separate, sequential, and safe code enhancements (utilities, tests, or documentation).
 5. **Auto-Commit**: The script applies these changes one by one, making separate git commits with meaningful messages.
 6. **Push**: The commits are pushed back to the `main` branch.
 
@@ -28,3 +28,6 @@ If no commits have been pushed by **10:50 PM IST (17:20 UTC)** on a given day, t
 3. **Enable Workflow Permissions**:
    - In your repository settings, go to **Settings** > **Actions** > **General**.
    - Under **Workflow permissions**, select **Read and write permissions** so the GitHub Actions runner can push commits.
+
+## Troubleshooting / Recent Updates
+- **Gemini API Endpoint Fix**: Switched to `gemini-3.6-flash` and the `v1beta` endpoint, as older models (like `gemini-1.5-flash` and `gemini-2.5-flash`) are no longer available or supported for new API keys.
