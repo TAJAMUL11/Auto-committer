@@ -26,8 +26,8 @@ jobs:
 
       - name: Configure Git
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "Tajamul Wani"
+          git config --global user.email "thetj4054@gmail.com"
 
       - name: Run Auto-Commit Script
         env:

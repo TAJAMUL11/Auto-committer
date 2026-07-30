@@ -186,10 +186,21 @@ async function run() {
 
   console.log(`Checking GitHub activity for user: ${username}`);
   let hasPushedToday = false;
+
+  // Determine the current repo name to filter events
+  const currentRepo = githubRepository || '';
+
   try {
     const events = await checkGitHubActivity(username);
     hasPushedToday = events.some(event => {
       if (event.type !== 'PushEvent') return false;
+
+      // Only count pushes to THIS repo, not all repos
+      if (currentRepo && event.repo && event.repo.name !== currentRepo) return false;
+
+      // Ignore pushes made by github-actions[bot] (our own auto-commits)
+      if (event.actor && event.actor.login === 'github-actions[bot]') return false;
+
       const eventDate = new Date(event.created_at);
       return getKolkataDateString(eventDate) === todayStr;
     });
@@ -197,8 +208,12 @@ async function run() {
     console.warn(`Failed to fetch GitHub activity: ${error.message}. Falling back to local git history check.`);
     let commitDates = [];
     try {
-      const output = execSync('git log --pretty=format:"%aI"', { encoding: 'utf-8' });
-      commitDates = output.split('\n').filter(Boolean).map(line => new Date(line.trim()));
+      // Only count commits authored by the user, not by bots
+      const output = execSync(`git log --pretty=format:"%aI|%an" --author="${username}"`, { encoding: 'utf-8' });
+      commitDates = output.split('\n').filter(Boolean).map(line => {
+        const [dateStr] = line.trim().split('|');
+        return new Date(dateStr);
+      });
     } catch (e) {
       console.log('No local git history found.');
     }
@@ -207,7 +222,7 @@ async function run() {
   }
 
   if (hasPushedToday) {
-    console.log(`Activity/commits found today (Kolkata time) for user "${username}". Auto-committer will stand down.`);
+    console.log(`Real commits found today (Kolkata time) for user "${username}". Auto-committer will stand down.`);
     return;
   }
 
