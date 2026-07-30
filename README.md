@@ -28,6 +28,9 @@ If no commits have been pushed by **9:00 PM IST (15:30 UTC)** on a given day, th
     ├── dateFormatter.js   # Timezone-aware date string formatting utilities
     ├── dateFormatter.test.js # Test suite for date formatting utilities
     ├── logger.js          # Timestamped logging helper functions
+    ├── logger.test.js      # Test suite for logger helper functions
+    ├── objectUtils.js     # Object manipulation helpers
+    ├── objectUtils.test.js # Test suite for object utilities
     ├── stringUtils.js     # String manipulation and validation helpers
     └── stringUtils.test.js # Test suite for string utilities
 ```
