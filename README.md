@@ -23,9 +23,13 @@ If no commits have been pushed by **9:00 PM IST (15:30 UTC)** on a given day, th
 ├── docs.md                # Developer documentation and design decisions
 ├── README.md              # Project overview and setup guide
 └── utils/                 # Modular helper utilities and tests
+    ├── arrayUtils.js      # Array manipulation helpers
+    ├── arrayUtils.test.js # Test suite for array utilities
     ├── dateFormatter.js   # Timezone-aware date string formatting utilities
     ├── dateFormatter.test.js # Test suite for date formatting utilities
-    └── logger.js          # Timestamped logging helper functions
+    ├── logger.js          # Timestamped logging helper functions
+    ├── stringUtils.js     # String manipulation and validation helpers
+    └── stringUtils.test.js # Test suite for string utilities
 ```
 
 ## Setup Instructions
