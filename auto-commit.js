@@ -187,16 +187,10 @@ async function run() {
   console.log(`Checking GitHub activity for user: ${username}`);
   let hasPushedToday = false;
 
-  // Determine the current repo name to filter events
-  const currentRepo = githubRepository || '';
-
   try {
     const events = await checkGitHubActivity(username);
     hasPushedToday = events.some(event => {
       if (event.type !== 'PushEvent') return false;
-
-      // Only count pushes to THIS repo, not all repos
-      if (currentRepo && event.repo && event.repo.name !== currentRepo) return false;
 
       // Ignore pushes made by github-actions[bot] (our own auto-commits)
       if (event.actor && event.actor.login === 'github-actions[bot]') return false;
