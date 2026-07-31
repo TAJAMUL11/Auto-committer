@@ -27,8 +27,12 @@ If no commits have been pushed by **9:00 PM IST (15:30 UTC)** on a given day, th
     ├── arrayUtils.test.js # Test suite for array utilities
     ├── dateFormatter.js   # Timezone-aware date string formatting utilities
     ├── dateFormatter.test.js # Test suite for date formatting utilities
+    ├── jsonUtils.js       # Safe JSON parsing and validation utilities
+    ├── jsonUtils.test.js  # Test suite for JSON utilities
     ├── logger.js          # Timestamped logging helper functions
     ├── logger.test.js      # Test suite for logger helper functions
+    ├── numberUtils.js     # Mathematical and numerical helpers
+    ├── numberUtils.test.js # Test suite for number utilities
     ├── objectUtils.js     # Object manipulation helpers
     ├── objectUtils.test.js # Test suite for object utilities
     ├── stringUtils.js     # String manipulation and validation helpers
