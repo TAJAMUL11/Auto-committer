@@ -17,8 +17,19 @@ function isEmpty(str) {
   return typeof str !== 'string' || str.trim().length === 0;
 }
 
+function slugify(str) {
+  if (typeof str !== 'string') return '';
+  return str
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, '')
+    .replace(/[\s_-]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
 module.exports = {
   capitalize,
   truncate,
-  isEmpty
+  isEmpty,
+  slugify
 };
