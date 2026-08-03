@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { capitalize, truncate, isEmpty } = require('./stringUtils');
+const { capitalize, truncate, isEmpty, slugify } = require('./stringUtils');
 
 function runTests() {
   // Test capitalize
@@ -15,6 +15,11 @@ function runTests() {
   assert.strictEqual(isEmpty(''), true);
   assert.strictEqual(isEmpty('   '), true);
   assert.strictEqual(isEmpty('hello'), false);
+
+  // Test slugify
+  assert.strictEqual(slugify('Hello World!'), 'hello-world');
+  assert.strictEqual(slugify('  JS & Node.js -- Auto Committer  '), 'js-nodejs-auto-committer');
+  assert.strictEqual(slugify(''), '');
 
   console.log('StringUtils tests passed successfully!');
 }
