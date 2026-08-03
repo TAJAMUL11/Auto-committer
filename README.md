@@ -25,6 +25,8 @@ If no commits have been pushed by **9:00 PM IST (15:30 UTC)** on a given day, th
 └── utils/                 # Modular helper utilities and tests
     ├── arrayUtils.js      # Array manipulation helpers
     ├── arrayUtils.test.js # Test suite for array utilities
+    ├── asyncUtils.js      # Asynchronous operation helpers (sleep, withTimeout, retry)
+    ├── asyncUtils.test.js # Test suite for async utilities
     ├── dateFormatter.js   # Timezone-aware date string formatting utilities
     ├── dateFormatter.test.js # Test suite for date formatting utilities
     ├── jsonUtils.js       # Safe JSON parsing and validation utilities
