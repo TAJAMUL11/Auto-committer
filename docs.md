@@ -22,6 +22,7 @@ To ensure the commits do not break any builds or tests:
 
 The repository includes modular helper utilities in the `utils/` directory:
 - `utils/arrayUtils.js`: Array manipulation and chunking helpers.
+- `utils/asyncUtils.js`: Asynchronous utilities including `sleep`, `withTimeout`, and `retry`.
 - `utils/dateFormatter.js`: Formats dates into `YYYY-MM-DD` strings according to specific timezones.
 - `utils/jsonUtils.js`: Safe JSON parsing, stringification, and string validation.
 - `utils/logger.js`: Standardized timestamped logging helpers (`logInfo`, `logWarn`, `logError`).
@@ -38,11 +39,14 @@ You can run the script locally to verify its functionality.
 $env:GEMINI_API_KEY="your-gemini-key"
 
 # Run utility unit tests
+node utils/arrayUtils.test.js
+node utils/asyncUtils.test.js
 node utils/dateFormatter.test.js
-node utils/objectUtils.test.js
-node utils/logger.test.js
 node utils/jsonUtils.test.js
+node utils/logger.test.js
 node utils/numberUtils.test.js
+node utils/objectUtils.test.js
+node utils/stringUtils.test.js
 
 # Run the auto-committer script
 node auto-commit.js
