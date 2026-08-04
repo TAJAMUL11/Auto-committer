@@ -21,8 +21,22 @@ function flatten(arr) {
   return arr.reduce((acc, val) => acc.concat(Array.isArray(val) ? flatten(val) : val), []);
 }
 
+function compact(arr) {
+  if (!Array.isArray(arr)) return [];
+  return arr.filter(Boolean);
+}
+
+function difference(arr1, arr2) {
+  if (!Array.isArray(arr1)) return [];
+  if (!Array.isArray(arr2)) return [...arr1];
+  const set2 = new Set(arr2);
+  return arr1.filter((item) => !set2.has(item));
+}
+
 module.exports = {
   unique,
   chunk,
-  flatten
+  flatten,
+  compact,
+  difference
 };
