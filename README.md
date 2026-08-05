@@ -29,6 +29,8 @@ If no commits have been pushed by **9:00 PM IST (15:30 UTC)** on a given day, th
     ├── asyncUtils.test.js # Test suite for async utilities
     ├── dateFormatter.js   # Timezone-aware date string formatting utilities
     ├── dateFormatter.test.js # Test suite for date formatting utilities
+    ├── envUtils.js        # Safe environment variable parsing helpers
+    ├── envUtils.test.js   # Test suite for environment utilities
     ├── jsonUtils.js       # Safe JSON parsing and validation utilities
     ├── jsonUtils.test.js  # Test suite for JSON utilities
     ├── logger.js          # Timestamped logging helper functions
@@ -38,7 +40,9 @@ If no commits have been pushed by **9:00 PM IST (15:30 UTC)** on a given day, th
     ├── objectUtils.js     # Object manipulation helpers
     ├── objectUtils.test.js # Test suite for object utilities
     ├── stringUtils.js     # String manipulation and validation helpers
-    └── stringUtils.test.js # Test suite for string utilities
+    ├── stringUtils.test.js # Test suite for string utilities
+    ├── validationUtils.js # Email, URL, and numeric validation helpers
+    └── validationUtils.test.js # Test suite for validation utilities
 ```
 
 ## Setup Instructions
