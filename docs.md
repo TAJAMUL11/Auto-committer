@@ -24,6 +24,7 @@ The repository includes modular helper utilities in the `utils/` directory:
 - `utils/arrayUtils.js`: Array manipulation, compacting, chunking, and difference helpers.
 - `utils/asyncUtils.js`: Asynchronous utilities including `sleep`, `withTimeout`, and `retry`.
 - `utils/dateFormatter.js`: Formats dates into `YYYY-MM-DD` strings according to specific timezones.
+- `utils/envUtils.js`: Safe environment variable retrieval, fallback, and type parsing helpers.
 - `utils/jsonUtils.js`: Safe JSON parsing, stringification, and string validation.
 - `utils/logger.js`: Standardized timestamped logging helpers (`logInfo`, `logWarn`, `logError`).
 - `utils/numberUtils.js`: Mathematical helpers for clamping, rounding, and range checks.
@@ -43,6 +44,7 @@ $env:GEMINI_API_KEY="your-gemini-key"
 node utils/arrayUtils.test.js
 node utils/asyncUtils.test.js
 node utils/dateFormatter.test.js
+node utils/envUtils.test.js
 node utils/jsonUtils.test.js
 node utils/logger.test.js
 node utils/numberUtils.test.js
