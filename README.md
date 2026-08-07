@@ -41,6 +41,8 @@ If no commits have been pushed by **9:00 PM IST (15:30 UTC)** on a given day, th
     ├── objectUtils.test.js # Test suite for object utilities
     ├── stringUtils.js     # String manipulation and validation helpers
     ├── stringUtils.test.js # Test suite for string utilities
+    ├── urlUtils.js        # Query parameter parsing and query string building helpers
+    ├── urlUtils.test.js   # Test suite for URL utilities
     ├── validationUtils.js # Email, URL, and numeric validation helpers
     └── validationUtils.test.js # Test suite for validation utilities
 ```
