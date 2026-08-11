@@ -30,13 +30,15 @@ If no commits have been pushed by **9:00 PM IST (15:30 UTC)** on a given day, th
     ├── colorUtils.js      # ANSI terminal text coloring and styling helpers
     ├── colorUtils.test.js # Test suite for color utilities
     ├── dateFormatter.js   # Timezone-aware date string formatting utilities
-    ├── dateFormatter.test.js # Test suite for date formatting utilities
+    ├��─ dateFormatter.test.js # Test suite for date formatting utilities
     ├── envUtils.js        # Safe environment variable parsing helpers
     ├── envUtils.test.js   # Test suite for environment utilities
     ├── jsonUtils.js       # Safe JSON parsing and validation utilities
     ├── jsonUtils.test.js  # Test suite for JSON utilities
     ├── logger.js          # Timestamped logging helper functions
     ├── logger.test.js      # Test suite for logger helper functions
+    ├── mathUtils.js       # Advanced mathematical and statistical helpers
+    ├── mathUtils.test.js  # Test suite for math utilities
     ├── numberUtils.js     # Mathematical and numerical helpers
     ├── numberUtils.test.js # Test suite for number utilities
     ├── objectUtils.js     # Object manipulation helpers
