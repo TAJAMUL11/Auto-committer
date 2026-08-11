@@ -28,6 +28,7 @@ The repository includes modular helper utilities in the `utils/` directory:
 - `utils/envUtils.js`: Safe environment variable retrieval, fallback, and type parsing helpers.
 - `utils/jsonUtils.js`: Safe JSON parsing, stringification, and string validation.
 - `utils/logger.js`: Standardized timestamped logging helpers (`logInfo`, `logWarn`, `logError`).
+- `utils/mathUtils.js`: Advanced mathematical and statistical helpers (`factorial`, `gcd`, `lcm`, `median`).
 - `utils/numberUtils.js`: Mathematical helpers for clamping, rounding, and range checks.
 - `utils/objectUtils.js`: Safe object key picking, omission, and type validation helpers.
 - `utils/stringUtils.js`: String formatting, truncation, slugification, and validation utilities.
@@ -50,6 +51,7 @@ node utils/dateFormatter.test.js
 node utils/envUtils.test.js
 node utils/jsonUtils.test.js
 node utils/logger.test.js
+node utils/mathUtils.test.js
 node utils/numberUtils.test.js
 node utils/objectUtils.test.js
 node utils/stringUtils.test.js
