@@ -29,8 +29,10 @@ If no commits have been pushed by **9:00 PM IST (15:30 UTC)** on a given day, th
     ├── asyncUtils.test.js # Test suite for async utilities
     ├── colorUtils.js      # ANSI terminal text coloring and styling helpers
     ├── colorUtils.test.js # Test suite for color utilities
+    ├── cryptoUtils.js     # Cryptographic hashing and random hex helpers
+    ├── cryptoUtils.test.js # Test suite for crypto utilities
     ├── dateFormatter.js   # Timezone-aware date string formatting utilities
-    ├��─ dateFormatter.test.js # Test suite for date formatting utilities
+    ├── dateFormatter.test.js # Test suite for date formatting utilities
     ├── envUtils.js        # Safe environment variable parsing helpers
     ├── envUtils.test.js   # Test suite for environment utilities
     ├── jsonUtils.js       # Safe JSON parsing and validation utilities
