@@ -27,11 +27,13 @@ The repository includes modular helper utilities in the `utils/` directory:
 - `utils/cryptoUtils.js`: Cryptographic hashing (SHA-256, MD5) and random hex generation helpers.
 - `utils/dateFormatter.js`: Formats dates into `YYYY-MM-DD` strings according to specific timezones.
 - `utils/envUtils.js`: Safe environment variable retrieval, fallback, and type parsing helpers.
+- `utils/functionUtils.js`: Function execution control helpers (`once`, `identity`, `constant`, `noop`).
 - `utils/jsonUtils.js`: Safe JSON parsing, stringification, and string validation.
 - `utils/logger.js`: Standardized timestamped logging helpers (`logInfo`, `logWarn`, `logError`).
 - `utils/mathUtils.js`: Advanced mathematical and statistical helpers (`factorial`, `gcd`, `lcm`, `median`).
 - `utils/numberUtils.js`: Mathematical helpers for clamping, rounding, and range checks.
 - `utils/objectUtils.js`: Safe object key picking, omission, and type validation helpers.
+- `utils/pathUtils.js`: File path manipulation, extension extraction, and path normalization helpers.
 - `utils/stringUtils.js`: String formatting, truncation, slugification, and validation utilities.
 - `utils/urlUtils.js`: Query parameter parsing and query string building helpers.
 - `utils/validationUtils.js`: String, email, URL, and numeric format validation utilities.
@@ -51,11 +53,13 @@ node utils/colorUtils.test.js
 node utils/cryptoUtils.test.js
 node utils/dateFormatter.test.js
 node utils/envUtils.test.js
+node utils/functionUtils.test.js
 node utils/jsonUtils.test.js
 node utils/logger.test.js
 node utils/mathUtils.test.js
 node utils/numberUtils.test.js
 node utils/objectUtils.test.js
+node utils/pathUtils.test.js
 node utils/stringUtils.test.js
 node utils/urlUtils.test.js
 node utils/validationUtils.test.js
