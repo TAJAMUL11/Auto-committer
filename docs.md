@@ -23,6 +23,7 @@ To ensure the commits do not break any builds or tests:
 The repository includes modular helper utilities in the `utils/` directory:
 - `utils/arrayUtils.js`: Array manipulation, compacting, chunking, and difference helpers.
 - `utils/asyncUtils.js`: Asynchronous utilities including `sleep`, `withTimeout`, and `retry`.
+- `utils/collectionUtils.js`: Array grouping (`groupBy`), key indexing (`keyBy`), and partitioning (`partition`) helpers.
 - `utils/colorUtils.js`: ANSI terminal color styling and ANSI escape code stripping helpers.
 - `utils/cryptoUtils.js`: Cryptographic hashing (SHA-256, MD5) and random hex generation helpers.
 - `utils/dateFormatter.js`: Formats dates into `YYYY-MM-DD` strings according to specific timezones.
@@ -49,6 +50,7 @@ $env:GEMINI_API_KEY="your-gemini-key"
 # Run utility unit tests
 node utils/arrayUtils.test.js
 node utils/asyncUtils.test.js
+node utils/collectionUtils.test.js
 node utils/colorUtils.test.js
 node utils/cryptoUtils.test.js
 node utils/dateFormatter.test.js
