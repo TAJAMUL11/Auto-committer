@@ -27,6 +27,8 @@ If no commits have been pushed by **9:00 PM IST (15:30 UTC)** on a given day, th
     ├── arrayUtils.test.js # Test suite for array utilities
     ├── asyncUtils.js      # Asynchronous operation helpers (sleep, withTimeout, retry)
     ├── asyncUtils.test.js # Test suite for async utilities
+    ├── collectionUtils.js # Array grouping and partitioning helpers
+    ├── collectionUtils.test.js # Test suite for collection utilities
     ├── colorUtils.js      # ANSI terminal text coloring and styling helpers
     ├── colorUtils.test.js # Test suite for color utilities
     ├── cryptoUtils.js     # Cryptographic hashing and random hex helpers
@@ -35,16 +37,20 @@ If no commits have been pushed by **9:00 PM IST (15:30 UTC)** on a given day, th
     ├── dateFormatter.test.js # Test suite for date formatting utilities
     ├── envUtils.js        # Safe environment variable parsing helpers
     ├── envUtils.test.js   # Test suite for environment utilities
+    ├── functionUtils.js   # Function execution control helpers
+    ├── functionUtils.test.js # Test suite for function utilities
     ├── jsonUtils.js       # Safe JSON parsing and validation utilities
     ├── jsonUtils.test.js  # Test suite for JSON utilities
     ├── logger.js          # Timestamped logging helper functions
-    ├── logger.test.js      # Test suite for logger helper functions
+    ├── logger.test.js     # Test suite for logger helper functions
     ├── mathUtils.js       # Advanced mathematical and statistical helpers
     ├── mathUtils.test.js  # Test suite for math utilities
     ├── numberUtils.js     # Mathematical and numerical helpers
     ├── numberUtils.test.js # Test suite for number utilities
     ├── objectUtils.js     # Object manipulation helpers
     ├── objectUtils.test.js # Test suite for object utilities
+    ├── pathUtils.js       # Path normalization and extension helpers
+    ├── pathUtils.test.js  # Test suite for path utilities
     ├── stringUtils.js     # String manipulation and validation helpers
     ├── stringUtils.test.js # Test suite for string utilities
     ├── urlUtils.js        # Query parameter parsing and query string building helpers
