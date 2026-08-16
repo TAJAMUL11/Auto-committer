@@ -37,6 +37,8 @@ If no commits have been pushed by **9:00 PM IST (15:30 UTC)** on a given day, th
     ├── dateFormatter.test.js # Test suite for date formatting utilities
     ├── envUtils.js        # Safe environment variable parsing helpers
     ├── envUtils.test.js   # Test suite for environment utilities
+    ├── fileUtils.js       # Safe directory creation and file I/O helpers
+    ├── fileUtils.test.js  # Test suite for file utilities
     ├── functionUtils.js   # Function execution control helpers
     ├── functionUtils.test.js # Test suite for function utilities
     ├── jsonUtils.js       # Safe JSON parsing and validation utilities
