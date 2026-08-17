@@ -36,6 +36,7 @@ The repository includes modular helper utilities in the `utils/` directory:
 - `utils/numberUtils.js`: Mathematical helpers for clamping, rounding, and range checks.
 - `utils/objectUtils.js`: Safe object key picking, omission, and type validation helpers.
 - `utils/pathUtils.js`: File path manipulation, extension extraction, and path normalization helpers.
+- `utils/rateLimiter.js`: Rate limiting and execution control helpers (`debounce`, `throttle`).
 - `utils/stringUtils.js`: String formatting, truncation, slugification, and validation utilities.
 - `utils/urlUtils.js`: Query parameter parsing and query string building helpers.
 - `utils/validationUtils.js`: String, email, URL, and numeric format validation utilities.
@@ -64,6 +65,7 @@ node utils/mathUtils.test.js
 node utils/numberUtils.test.js
 node utils/objectUtils.test.js
 node utils/pathUtils.test.js
+node utils/rateLimiter.test.js
 node utils/stringUtils.test.js
 node utils/urlUtils.test.js
 node utils/validationUtils.test.js
