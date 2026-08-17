@@ -53,6 +53,8 @@ If no commits have been pushed by **9:00 PM IST (15:30 UTC)** on a given day, th
     ├── objectUtils.test.js # Test suite for object utilities
     ├── pathUtils.js       # Path normalization and extension helpers
     ├── pathUtils.test.js  # Test suite for path utilities
+    ├── rateLimiter.js     # Rate limiting, debouncing, and throttling helpers
+    ├── rateLimiter.test.js # Test suite for rate limiting utilities
     ├── stringUtils.js     # String manipulation and validation helpers
     ├── stringUtils.test.js # Test suite for string utilities
     ├── urlUtils.js        # Query parameter parsing and query string building helpers
