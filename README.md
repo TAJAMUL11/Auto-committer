@@ -57,6 +57,8 @@ If no commits have been pushed by **9:00 PM IST (15:30 UTC)** on a given day, th
     ├── rateLimiter.test.js # Test suite for rate limiting utilities
     ├── stringUtils.js     # String manipulation and validation helpers
     ├── stringUtils.test.js # Test suite for string utilities
+    ├── typeUtils.js       # Type checking and validation helpers
+    ├── typeUtils.test.js  # Test suite for type utilities
     ├── urlUtils.js        # Query parameter parsing and query string building helpers
     ├── urlUtils.test.js   # Test suite for URL utilities
     ├── validationUtils.js # Email, URL, and numeric validation helpers
