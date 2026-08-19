@@ -16,6 +16,7 @@ const mathUtils = require('./mathUtils');
 const numberUtils = require('./numberUtils');
 const objectUtils = require('./objectUtils');
 const pathUtils = require('./pathUtils');
+const promiseUtils = require('./promiseUtils');
 const rateLimiter = require('./rateLimiter');
 const stringUtils = require('./stringUtils');
 const typeUtils = require('./typeUtils');
@@ -38,6 +39,7 @@ module.exports = {
   ...numberUtils,
   ...objectUtils,
   ...pathUtils,
+  ...promiseUtils,
   ...rateLimiter,
   ...stringUtils,
   ...typeUtils,
