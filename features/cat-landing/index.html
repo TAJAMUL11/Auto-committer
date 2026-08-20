@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A beautiful landing page dedicated to cats — explore fun facts, adopt, and celebrate our feline friends.">
+  <title>Whiskers & Paws — Cat Landing Page</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Floating paw prints background -->
+  <div class="paw-container" id="pawContainer" aria-hidden="true"></div>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <div class="nav-brand">
+        <span class="nav-icon">🐱</span>
+        <span class="nav-title">Whiskers & Paws</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#facts">Fun Facts</a></li>
+        <li><a href="#breeds">Breeds</a></li>
+        <li><a href="#adopt">Adopt</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+          <span class="toggle-icon">🌙</span>
+        </button>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero-content">
+      <p class="hero-tag">Welcome to the purrfect place</p>
+      <h1 class="hero-title">
+        <span class="title-line">Every Cat</span>
+        <span class="title-line gradient-text">Deserves Love</span>
+      </h1>
+      <p class="hero-desc" id="heroDesc"></p>
+      <div class="hero-cta">
+        <a href="#adopt" class="btn btn-primary">
+          <span>Adopt a Cat</span>
+          <span class="btn-icon">🐾</span>
+        </a>
+        <a href="#facts" class="btn btn-ghost">Explore Facts</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-number" data-target="3200">0</span>
+          <span class="stat-label">Cats Adopted</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number" data-target="73">0</span>
+          <span class="stat-label">Breeds Listed</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number" data-target="15000">0</span>
+          <span class="stat-label">Happy Owners</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="cat-art">
+        <div class="cat-silhouette">
+          <div class="cat-ear left"></div>
+          <div class="cat-ear right"></div>
+          <div class="cat-head">
+            <div class="cat-eye left">
+              <div class="cat-pupil"></div>
+            </div>
+            <div class="cat-eye right">
+              <div class="cat-pupil"></div>
+            </div>
+            <div class="cat-nose"></div>
+            <div class="cat-mouth">
+              <div class="whisker-group left">
+                <div class="whisker"></div>
+                <div class="whisker"></div>
+                <div class="whisker"></div>
+              </div>
+              <div class="whisker-group right">
+                <div class="whisker"></div>
+                <div class="whisker"></div>
+                <div class="whisker"></div>
+              </div>
+            </div>
+          </div>
+          <div class="cat-body"></div>
+          <div class="cat-tail"></div>
+        </div>
+        <div class="glow-ring"></div>
+        <div class="glow-ring delay"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fun Facts Section -->
+  <section class="facts-section" id="facts">
+    <div class="section-header">
+      <p class="section-tag">Did you know?</p>
+      <h2 class="section-title">Amazing Cat Facts</h2>
+    </div>
+    <div class="facts-carousel" id="factsCarousel">
+      <div class="facts-track" id="factsTrack">
+        <div class="fact-card" data-index="0">
+          <div class="fact-icon">😴</div>
+          <h3>Sleep Champions</h3>
+          <p>Cats spend 70% of their lives sleeping — that's about 13-16 hours every single day!</p>
+        </div>
+        <div class="fact-card" data-index="1">
+          <div class="fact-icon">🏃</div>
+          <h3>Lightning Fast</h3>
+          <p>A house cat can reach speeds of up to 30 mph — faster than Usain Bolt's top speed!</p>
+        </div>
+        <div class="fact-card" data-index="2">
+          <div class="fact-icon">👃</div>
+          <h3>Super Sniffers</h3>
+          <p>Cats have 200 million scent receptors in their nose, while humans only have about 5 million.</p>
+        </div>
+        <div class="fact-card" data-index="3">
+          <div class="fact-icon">💤</div>
+          <h3>Dream Weavers</h3>
+          <p>Cats experience REM sleep just like humans — meaning they likely dream about chasing mice!</p>
+        </div>
+        <div class="fact-card" data-index="4">
+          <div class="fact-icon">🎵</div>
+          <h3>Healing Purrs</h3>
+          <p>A cat's purr vibrates at 25-150 Hz — frequencies known to promote bone healing and reduce stress.</p>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-controls">
+      <button class="carousel-btn" id="prevFact" aria-label="Previous fact">←</button>
+      <div class="carousel-dots" id="carouselDots"></div>
+      <button class="carousel-btn" id="nextFact" aria-label="Next fact">→</button>
+    </div>
+  </section>
+
+  <!-- Breeds Section -->
+  <section class="breeds-section" id="breeds">
+    <div class="breeds-inner">
+    <div class="section-header">
+      <p class="section-tag">Find your match</p>
+      <h2 class="section-title">Popular Breeds</h2>
+    </div>
+    <div class="breeds-grid" id="breedsGrid">
+      <div class="breed-card" data-breed="persian">
+        <div class="breed-emoji">🐱</div>
+        <div class="breed-info">
+          <h3>Persian</h3>
+          <p>Gentle, quiet, and affectionate — the ultimate lap cat with luxurious fur.</p>
+          <div class="breed-traits">
+            <span class="trait">Calm</span>
+            <span class="trait">Fluffy</span>
+            <span class="trait">Indoor</span>
+          </div>
+        </div>
+      </div>
+      <div class="breed-card" data-breed="siamese">
+        <div class="breed-emoji">😺</div>
+        <div class="breed-info">
+          <h3>Siamese</h3>
+          <p>Vocal, intelligent, and social — they'll follow you everywhere and talk nonstop.</p>
+          <div class="breed-traits">
+            <span class="trait">Vocal</span>
+            <span class="trait">Smart</span>
+            <span class="trait">Social</span>
+          </div>
+        </div>
+      </div>
+      <div class="breed-card" data-breed="mainecoon">
+        <div class="breed-emoji">😸</div>
+        <div class="breed-info">
+          <h3>Maine Coon</h3>
+          <p>The gentle giant — playful, dog-like personality in an impressively large package.</p>
+          <div class="breed-traits">
+            <span class="trait">Large</span>
+            <span class="trait">Playful</span>
+            <span class="trait">Friendly</span>
+          </div>
+        </div>
+      </div>
+      <div class="breed-card" data-breed="bengal">
+        <div class="breed-emoji">😼</div>
+        <div class="breed-info">
+          <h3>Bengal</h3>
+          <p>Wild at heart with stunning leopard-like spots — active, athletic, and adventurous.</p>
+          <div class="breed-traits">
+            <span class="trait">Active</span>
+            <span class="trait">Athletic</span>
+            <span class="trait">Exotic</span>
+          </div>
+        </div>
+      </div>
+      <div class="breed-card" data-breed="ragdoll">
+        <div class="breed-emoji">😻</div>
+        <div class="breed-info">
+          <h3>Ragdoll</h3>
+          <p>Named for going limp when picked up — incredibly docile, loving blue-eyed beauties.</p>
+          <div class="breed-traits">
+            <span class="trait">Docile</span>
+            <span class="trait">Loving</span>
+            <span class="trait">Blue-eyed</span>
+          </div>
+        </div>
+      </div>
+      <div class="breed-card" data-breed="scottish">
+        <div class="breed-emoji">🐈</div>
+        <div class="breed-info">
+          <h3>Scottish Fold</h3>
+          <p>Famous for folded ears and owl-like face — sweet-tempered and loves companionship.</p>
+          <div class="breed-traits">
+            <span class="trait">Sweet</span>
+            <span class="trait">Unique</span>
+            <span class="trait">Quiet</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <!-- Adopt Section -->
+  <section class="adopt-section" id="adopt">
+    <div class="adopt-content">
+      <div class="section-header">
+        <p class="section-tag">Make a difference</p>
+        <h2 class="section-title">Ready to Adopt?</h2>
+      </div>
+      <p class="adopt-desc">Every cat deserves a warm home and a loving family. Begin your journey to finding the purrfect companion today.</p>
+      <div class="adopt-steps">
+        <div class="step">
+          <div class="step-number">01</div>
+          <h4>Browse</h4>
+          <p>Explore breeds and find a cat that matches your lifestyle.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">02</div>
+          <h4>Connect</h4>
+          <p>Reach out to local shelters and arrange a meet-and-greet.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">03</div>
+          <h4>Welcome Home</h4>
+          <p>Bring your new furry friend home and start making memories.</p>
+        </div>
+      </div>
+      <a href="#" class="btn btn-primary btn-large">
+        <span>Find Your Cat</span>
+        <span class="btn-icon">❤️</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <span class="nav-icon">🐱</span>
+        <span>Whiskers & Paws</span>
+      </div>
+      <p class="footer-text">Made with ❤️ for cats everywhere</p>
+      <p class="footer-copy">&copy; 2026 Whiskers & Paws. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
