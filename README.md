@@ -1,70 +1,41 @@
-# Auto-Committer Tool
+# Helper-Hub Tool
 
 An intelligent, cloud-based auto-committer that automatically keeps your GitHub contributions green and active. 
 
-If no commits have been pushed by **9:00 PM IST (15:30 UTC)** on a given day, this tool wakes up, calls the Gemini API to generate 4-5 meaningful, non-breaking improvements (such as documentation enhancements, utility helpers, unit tests, or code comments), and commits/pushes them automatically.
+If no commits have been pushed by **11:15 PM IST (17:45 UTC)** on a given day, this tool wakes up, calls the Gemini API to generate 4-5 meaningful improvements to an evolving **"Whiskers & Paws" cat landing page** — adding new sections, visual enhancements, animations, interactive features, and responsive polish — and commits/pushes them automatically.
 
 ## How It Works
 
-1. **Scheduled Run**: A GitHub Actions workflow runs every day at 15:30 UTC (9:00 PM IST).
+1. **Scheduled Run**: A GitHub Actions workflow runs every day at 17:45 UTC (11:15 PM IST).
 2. **Commit Check**: The tool queries the repository's commit history for the current day in the `Asia/Kolkata` timezone.
 3. **Check Condition**:
    - If commits exist for the day, it logs the condition and exits.
    - If no commits exist, it requests code changes from the Gemini API.
-4. **Change Generation**: Gemini generates 4-5 separate, sequential, and safe code enhancements (utilities, tests, or documentation).
-5. **Auto-Commit**: The script applies these changes one by one, making separate git commits with meaningful messages.
-6. **Push**: The commits are pushed back to the `main` branch.
+4. **Change Generation**: Gemini iteratively improves the cat landing page across these categories:
+   - 🎨 **New Sections & Content** — gallery grids, testimonials, FAQ accordions, quizzes
+   - 💅 **Visual Enhancements** — glassmorphism, gradient meshes, animated borders, neon effects
+   - ✨ **Micro-Animations** — scroll reveals, hover effects, ripple clicks, marquees
+   - ⚡ **Interactive Features** — cursor effects, scroll progress, lightbox, search/filter
+   - 📱 **Responsiveness & Polish** — mobile menu, tablet breakpoints, accessibility, fluid typography
+5. **Safety Validation**: Only 3 whitelisted files can be modified. Path traversal and empty content are rejected.
+6. **Auto-Commit**: The script applies changes one by one, making separate git commits with conventional commit messages.
+7. **Push**: The commits are pushed back to the `main` branch.
 
 ## Project Structure
 
 ```
 .
-├── auto-commit.js         # Core script for commit verification & LLM code generation
-├── docs.md                # Developer documentation and design decisions
-├── README.md              # Project overview and setup guide
-└── utils/                 # Modular helper utilities and tests
-    ├── arrayUtils.js      # Array manipulation helpers
-    ├── arrayUtils.test.js # Test suite for array utilities
-    ├── asyncUtils.js      # Asynchronous operation helpers (sleep, withTimeout, retry)
-    ├── asyncUtils.test.js # Test suite for async utilities
-    ├── collectionUtils.js # Array grouping and partitioning helpers
-    ├── collectionUtils.test.js # Test suite for collection utilities
-    ├── colorUtils.js      # ANSI terminal text coloring and styling helpers
-    ├── colorUtils.test.js # Test suite for color utilities
-    ├── cryptoUtils.js     # Cryptographic hashing and random hex helpers
-    ├── cryptoUtils.test.js # Test suite for crypto utilities
-    ├── dateFormatter.js   # Timezone-aware date string formatting utilities
-    ├── dateFormatter.test.js # Test suite for date formatting utilities
-    ├── envUtils.js        # Safe environment variable parsing helpers
-    ├── envUtils.test.js   # Test suite for environment utilities
-    ├── fileUtils.js       # Safe directory creation and file I/O helpers
-    ├── fileUtils.test.js  # Test suite for file utilities
-    ├── functionUtils.js   # Function execution control helpers
-    ├── functionUtils.test.js # Test suite for function utilities
-    ├── jsonUtils.js       # Safe JSON parsing and validation utilities
-    ├── jsonUtils.test.js  # Test suite for JSON utilities
-    ├── logger.js          # Timestamped logging helper functions
-    ├── logger.test.js     # Test suite for logger helper functions
-    ├── mathUtils.js       # Advanced mathematical and statistical helpers
-    ├── mathUtils.test.js  # Test suite for math utilities
-    ├── numberUtils.js     # Mathematical and numerical helpers
-    ├── numberUtils.test.js # Test suite for number utilities
-    ├── objectUtils.js     # Object manipulation helpers
-    ├── objectUtils.test.js # Test suite for object utilities
-    ├── pathUtils.js       # Path normalization and extension helpers
-    ├── pathUtils.test.js  # Test suite for path utilities
-    ├── promiseUtils.js    # Promise deferred and concurrency mapping helpers
-    ├── promiseUtils.test.js # Test suite for promise utilities
-    ├── rateLimiter.js     # Rate limiting, debouncing, and throttling helpers
-    ├── rateLimiter.test.js # Test suite for rate limiting utilities
-    ├── stringUtils.js     # String manipulation and validation helpers
-    ├── stringUtils.test.js # Test suite for string utilities
-    ├── typeUtils.js       # Type checking and validation helpers
-    ├── typeUtils.test.js  # Test suite for type utilities
-    ├── urlUtils.js        # Query parameter parsing and query string building helpers
-    ├── urlUtils.test.js   # Test suite for URL utilities
-    ├── validationUtils.js # Email, URL, and numeric validation helpers
-    └── validationUtils.test.js # Test suite for validation utilities
+├── auto-commit.js                  # Core script: commit check, Gemini API, safety validation
+├── docs.md                         # Developer documentation and design decisions
+├── README.md                       # Project overview and setup guide
+├── features/
+│   └── cat-landing/                # 🐱 The evolving cat landing page (auto-improved daily)
+│       ├── index.html              # Page structure and content
+│       ├── style.css               # Styling, animations, and themes
+│       └── script.js               # Interactivity, effects, and logic
+└── utils/                          # 🔧 Modular helper utilities and tests
+    ├── arrayUtils.js, asyncUtils.js, collectionUtils.js, ...
+    └── *.test.js                   # Corresponding test suites
 ```
 
 ## Setup Instructions
@@ -81,5 +52,16 @@ If no commits have been pushed by **9:00 PM IST (15:30 UTC)** on a given day, th
    - In your repository settings, go to **Settings** > **Actions** > **General**.
    - Under **Workflow permissions**, select **Read and write permissions** so the GitHub Actions runner can push commits.
 
+## Safety Features
+
+The auto-committer includes multiple layers of safety validation:
+- **Whitelist-Only**: Only 3 specific files can be modified (`features/cat-landing/index.html`, `style.css`, `script.js`)
+- **Path Traversal Prevention**: File paths containing `..` are rejected
+- **Empty Content Check**: Changes with empty content are skipped
+- **Bot Detection**: Auto-commits by `github-actions[bot]` don't count as real activity
+- **Preserve-First**: The Gemini prompt enforces additive-only changes — existing features are never removed
+
 ## Troubleshooting / Recent Updates
+- **Iterative Page Evolution**: The auto-committer now iteratively improves a single cat landing page rather than creating scattered files. Each day's commits build on the previous day's work.
+- **Schedule Update**: Changed from 9:00 PM IST to 11:15 PM IST for better end-of-day coverage.
 - **Gemini API Endpoint Fix**: Switched to `gemini-3.6-flash` and the `v1beta` endpoint, as older models (like `gemini-1.5-flash` and `gemini-2.5-flash`) are no longer available or supported for new API keys.
