@@ -37,7 +37,9 @@ function getCodebaseContext() {
         if (
           file.endsWith('.js') ||
           file.endsWith('.json') ||
-          file.endsWith('.md')
+          file.endsWith('.md') ||
+          file.endsWith('.html') ||
+          file.endsWith('.css')
         ) {
           const content = fs.readFileSync(fullPath, 'utf8');
           files.push({
@@ -60,7 +62,7 @@ function checkGitHubActivity(username) {
       path: `/users/${encodeURIComponent(username)}/events`,
       method: 'GET',
       headers: {
-        'User-Agent': 'Node.js-Auto-Committer',
+        'User-Agent': 'Node.js-Helper-Hub',
         'Accept': 'application/vnd.github.v3+json'
       }
     };
@@ -219,38 +221,75 @@ async function run() {
     console.log(`Real commits found today (Kolkata time) for user "${username}". Auto-committer will stand down.`);
     return;
   }
-
   console.log('No commits found today. Querying Gemini for improvements...');
   const context = getCodebaseContext();
 
   const prompt = `
-You are an expert software developer helping to maintain a repository with high-quality, meaningful contributions.
-Here is the current state of the repository:
+You are an expert frontend developer iteratively improving a "Whiskers & Paws" cat landing page.
+The project has exactly 3 files that you will enhance:
+- features/cat-landing/index.html (structure and content)
+- features/cat-landing/style.css (styling, animations, themes)
+- features/cat-landing/script.js (interactivity, effects, logic)
+
+Here is the CURRENT state of these files:
 ${JSON.stringify(context, null, 2)}
 
-Your task is to generate 4 to 5 sequential, meaningful, and completely non-breaking code/documentation improvements.
-Examples of good changes:
-- Adding useful helper/utility modules (e.g., string validators, date formatters, array utilities).
-- Adding simple unit tests or utility test suites.
-- Adding details or enhancements to documentation (README.md, docs.md).
-- Refactoring helper code with comments or cleaner helper functions.
+Your task: generate 4 to 5 sequential improvements that make the cat landing page BETTER than it is now.
+Each change MUST modify one of the 3 files above. You are enhancing an evolving project — not starting from scratch.
 
-You MUST return a JSON object in this exact format:
+Pick improvements from these categories (choose at least 3 different ones per run):
+
+1. **New Sections & Content** (HTML) — Add new page sections like: a gallery grid, testimonials carousel,
+   cat care tips, FAQ accordion, newsletter signup form, featured cat of the day, cat breed comparison table,
+   photo masonry layout, interactive quiz ("Which cat breed are you?"), timeline of cat history.
+
+2. **Visual Enhancements** (CSS) — Add new styles: glassmorphism cards, gradient mesh backgrounds,
+   animated borders, neon glow effects, parallax scroll effects, 3D transform card flips,
+   skeleton loading states, morphing shape dividers, text gradient animations, custom scrollbar styling,
+   new color scheme variations, CSS grid art, animated SVG backgrounds, blur/frosted glass overlays.
+
+3. **Micro-Animations** (CSS) — Scroll-triggered reveals, staggered entrance animations,
+   magnetic hover effects, ripple click effects, infinite marquee scrollers, typewriter effects,
+   count-up number animations, progress bar animations, floating elements, wave animations.
+
+4. **Interactive Features** (JS) — Smooth scroll with progress indicator, lazy image loading,
+   interactive cursor effects, dark/light theme with system preference detection, keyboard shortcuts,
+   scroll-to-top button with progress ring, image lightbox/modal, filter/search for breeds,
+   localStorage favorites, confetti effects on button click, sound toggle, parallax mouse tracking.
+
+5. **Responsiveness & Polish** (CSS + HTML) — Mobile hamburger menu animation, tablet breakpoint optimization,
+   touch-friendly interactions, accessibility improvements (ARIA labels, focus states, skip navigation),
+   print styles, reduced motion preferences, container queries, fluid typography improvements.
+
+CRITICAL RULES:
+- You are MODIFYING the existing files — return the COMPLETE updated file content for each change.
+- Each change must build on top of the previous ones in sequence (change 2 sees the result of change 1, etc).
+- ONLY modify these 3 files: features/cat-landing/index.html, features/cat-landing/style.css, features/cat-landing/script.js
+- NEVER touch: auto-commit.js, .github/, .gitignore, README.md, docs.md, package.json, or anything in utils/
+- All HTML must remain fully responsive across mobile, tablet, and desktop.
+- Use Google Fonts via CDN, modern CSS (grid, flexbox, clamp(), custom properties), and vanilla JS only.
+- Preserve ALL existing functionality — only add or enhance, never remove working features.
+- Keep the code clean, well-commented, and free of syntax errors.
+- Commit messages must follow conventional commits (feat:, style:, fix:, refactor:).
+- Do NOT duplicate existing sections or features — always add something NEW.
+
+Return a JSON object in this exact format:
 {
   "changes": [
     {
-      "filePath": "utils/math.js",
-      "content": "const add = (a, b) => a + b;\\nmodule.exports = { add };",
-      "commitMessage": "feat: add mathematical helpers"
+      "filePath": "features/cat-landing/style.css",
+      "content": "/* complete updated CSS file content */",
+      "commitMessage": "style: add glassmorphism card hover effects"
     }
   ]
 }
 
 Ensure:
 1. The changes list has exactly 4 or 5 elements.
-2. The changes are sequential (later changes can build upon earlier changes in the list).
-3. The code is clean, syntax-error free, and does not break any existing code.
-4. Return ONLY the JSON object, conforming to responseMimeType "application/json". Do not wrap it in markdown blocks.
+2. Changes span at least 2 of the 3 files.
+3. Each change returns the FULL updated file content (not a diff or partial snippet).
+4. The changes are sequential — each one builds on the previous.
+5. Return ONLY the JSON object. Do not wrap in markdown.
 `;
 
   try {
@@ -261,19 +300,44 @@ Ensure:
       throw new Error('Gemini returned empty or invalid changes structure.');
     }
 
+    // Safety: only these files may be modified by the auto-committer
+    const allowedPaths = [
+      'features/cat-landing/index.html',
+      'features/cat-landing/style.css',
+      'features/cat-landing/script.js'
+    ];
+
     console.log(`Applying ${result.changes.length} generated changes...`);
     for (const change of result.changes) {
+      // Safety validation: reject path traversal
+      if (change.filePath.includes('..')) {
+        console.warn(`- SKIPPED (path traversal detected): "${change.filePath}"`);
+        continue;
+      }
+
+      // Safety validation: only allow whitelisted files
+      if (!allowedPaths.includes(change.filePath)) {
+        console.warn(`- SKIPPED (not a whitelisted file): "${change.filePath}"`);
+        continue;
+      }
+
+      // Safety validation: reject empty content
+      if (!change.content || change.content.trim().length === 0) {
+        console.warn(`- SKIPPED (empty content): "${change.filePath}"`);
+        continue;
+      }
+
       const fullPath = path.resolve(process.cwd(), change.filePath);
-      
+
       // Ensure target directory exists
       fs.mkdirSync(path.dirname(fullPath), { recursive: true });
-      
-      // Write the content
+
+      // Write the updated content
       fs.writeFileSync(fullPath, change.content, 'utf8');
-      
+
       // Stage change
       execSync(`git add "${change.filePath}"`);
-      
+
       // Commit change
       execSync(`git commit -m "${change.commitMessage}"`);
       console.log(`- Created commit: "${change.commitMessage}"`);
