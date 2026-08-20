@@ -1,4 +1,4 @@
-# Auto-Committer Developer Documentation
+# Helper-Hub Developer Documentation
 
 This document explains the technical architecture, design decisions, and local verification steps for the Auto-Committer tool.
 
@@ -7,16 +7,71 @@ This document explains the technical architecture, design decisions, and local v
 ### Timezone Safety
 Because GitHub Actions runners operate in UTC time, and the day boundary changes at 12:00 AM local time (Asia/Kolkata), we ensure the script determines the date using the local time of the user:
 - We parse dates and check the commit history relative to `Asia/Kolkata` time.
-- The cron schedule `30 15 * * *` is set specifically to fire at 9:00 PM IST.
+- The cron schedule `45 17 * * *` is set specifically to fire at 11:15 PM IST.
+
+### Iterative Page Evolution
+Instead of creating scattered files across the repository, the auto-committer focuses on iteratively improving a single project: the **"Whiskers & Paws" cat landing page** located in `features/cat-landing/`.
+
+Each daily run enhances the same 3 files:
+- `features/cat-landing/index.html` — page structure and content
+- `features/cat-landing/style.css` — styling, animations, and themes
+- `features/cat-landing/script.js` — interactivity, effects, and logic
+
+This means the landing page grows richer and more polished every day — new sections get added, animations become more refined, and the overall experience improves incrementally.
 
 ### Non-Breaking Changes
-To ensure the commits do not break any builds or tests:
-- The Gemini API is instructed to return files and contents structured as JSON.
-- We restrict the LLM to only make additions/extensions (e.g. creating separate utility files, documenting existing setups, or creating tests).
-- If compilation or execution of the script fails, changes are automatically reverted.
+To ensure the commits do not break any existing functionality:
+- The Gemini API is instructed to return the **complete updated file content** for each change.
+- The prompt enforces **additive-only** changes — existing features are preserved, never removed.
+- Changes are applied sequentially, with each building on the previous one.
+- If the script fails, changes are automatically reverted.
+
+### Safety Validations — Whitelist Approach
+The auto-commit script uses a **whitelist-only** approach for maximum safety:
+1. **Whitelisted Files Only**: Only these 3 files can be modified:
+   - `features/cat-landing/index.html`
+   - `features/cat-landing/style.css`
+   - `features/cat-landing/script.js`
+2. **Path Traversal Rejection**: File paths containing `..` are rejected.
+3. **Empty Content Check**: Changes with empty or whitespace-only content are skipped.
+4. **Any other file path is rejected** — the script will never touch `auto-commit.js`, `.github/`, `README.md`, `docs.md`, or anything in `utils/`.
 
 ### API Configuration
 - We use the `v1beta` endpoint with `gemini-3.6-flash` (`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent`) because older model versions (such as `1.5-flash` or `2.5-flash`) are no longer available or supported for newer API keys.
+
+## Auto-Generated Improvement Categories
+
+The Gemini prompt guides improvements across 5 categories (at least 3 are used per run):
+
+### 1. New Sections & Content (HTML)
+Adding new page sections to enrich the landing page:
+- Gallery grids, testimonials carousels, cat care tips
+- FAQ accordions, newsletter signup forms, featured cat of the day
+- Cat breed comparison tables, interactive quizzes, timelines
+
+### 2. Visual Enhancements (CSS)
+Adding styling upgrades for a premium look:
+- Glassmorphism cards, gradient mesh backgrounds, animated borders
+- Neon glow effects, parallax scroll effects, 3D transform card flips
+- Skeleton loading states, morphing shape dividers, custom scrollbar styling
+
+### 3. Micro-Animations (CSS)
+Adding subtle motion design for engagement:
+- Scroll-triggered reveals, staggered entrance animations
+- Magnetic hover effects, ripple click effects, infinite marquees
+- Count-up animations, floating elements, wave animations
+
+### 4. Interactive Features (JS)
+Adding dynamic behavior and user interaction:
+- Smooth scroll with progress indicator, cursor effects
+- Scroll-to-top button, image lightbox/modal, breed search/filter
+- localStorage favorites, confetti effects, parallax mouse tracking
+
+### 5. Responsiveness & Polish (CSS + HTML)
+Improving cross-device experience and accessibility:
+- Mobile hamburger menu animation, tablet breakpoint optimization
+- ARIA labels, focus states, skip navigation, print styles
+- Reduced motion preferences, fluid typography improvements
 
 ## Helper Utilities
 
@@ -73,6 +128,9 @@ node utils/stringUtils.test.js
 node utils/typeUtils.test.js
 node utils/urlUtils.test.js
 node utils/validationUtils.test.js
+
+# Open the cat landing page locally
+# Just open features/cat-landing/index.html in your browser
 
 # Run the auto-committer script
 node auto-commit.js
