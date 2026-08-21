@@ -1,7 +1,8 @@
 /**
  * Whiskers & Paws — Cat Landing Page Scripts
  * Handles: typing animation, stats counter, carousel, theme toggle,
- *          floating paws, scroll animations, and navbar behavior.
+ *          floating paws, scroll animations, breed filter/search,
+ *          accordion tips, scroll progress, back to top button, and newsletter form.
  */
 
 (function () {
@@ -217,6 +218,142 @@
     breedCards.forEach((card) => observer.observe(card));
   }
 
+  // ─── Breed Search & Filtering ───────────────────────────
+  function initBreedFilter() {
+    const searchInput = document.getElementById('breedSearch');
+    const filterTags = document.querySelectorAll('.filter-tag');
+    const breedCards = document.querySelectorAll('.breed-card');
+    let currentFilter = 'all';
+
+    function applyFilter() {
+      const query = (searchInput?.value || '').toLowerCase().trim();
+
+      breedCards.forEach((card) => {
+        const name = card.querySelector('h3')?.textContent.toLowerCase() || '';
+        const desc = card.querySelector('p')?.textContent.toLowerCase() || '';
+        const traits = (card.getAttribute('data-traits') || '').toLowerCase();
+
+        const matchesQuery = !query || name.includes(query) || desc.includes(query) || traits.includes(query);
+        const matchesTag = currentFilter === 'all' || traits.includes(currentFilter);
+
+        if (matchesQuery && matchesTag) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    }
+
+    searchInput?.addEventListener('input', applyFilter);
+
+    filterTags.forEach((tag) => {
+      tag.addEventListener('click', () => {
+        filterTags.forEach((t) => t.classList.remove('active'));
+        tag.classList.add('active');
+        currentFilter = tag.getAttribute('data-filter') || 'all';
+        applyFilter();
+      });
+    });
+  }
+
+  // ─── Care Tips Accordion ────────────────────────────────
+  function initAccordion() {
+    const items = document.querySelectorAll('.accordion-item');
+
+    items.forEach((item) => {
+      const header = item.querySelector('.accordion-header');
+      const body = item.querySelector('.accordion-body');
+
+      header?.addEventListener('click', () => {
+        const isOpen = item.classList.contains('active');
+
+        // Close all other items
+        items.forEach((other) => {
+          if (other !== item) {
+            other.classList.remove('active');
+            other.querySelector('.accordion-header')?.setAttribute('aria-expanded', 'false');
+            const otherBody = other.querySelector('.accordion-body');
+            if (otherBody) otherBody.style.maxHeight = null;
+          }
+        });
+
+        // Toggle current item
+        if (isOpen) {
+          item.classList.remove('active');
+          header.setAttribute('aria-expanded', 'false');
+          if (body) body.style.maxHeight = null;
+        } else {
+          item.classList.add('active');
+          header.setAttribute('aria-expanded', 'true');
+          if (body) body.style.maxHeight = body.scrollHeight + 'px';
+        }
+      });
+    });
+  }
+
+  // ─── Scroll Progress & Back to Top ─────────────────────
+  function initScrollProgress() {
+    const progressBar = document.getElementById('scrollProgressBar');
+    const backToTopBtn = document.getElementById('backToTop');
+    const circle = document.querySelector('.progress-ring-circle');
+    const circumference = 125.6; // 2 * PI * r (r=20)
+
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) : 0;
+
+      // Update top progress bar
+      if (progressBar) {
+        progressBar.style.width = `${scrollPercent * 100}%`;
+      }
+
+      // Update back-to-top button
+      if (backToTopBtn) {
+        if (scrollTop > 300) {
+          backToTopBtn.classList.add('visible');
+        } else {
+          backToTopBtn.classList.remove('visible');
+        }
+      }
+
+      if (circle) {
+        const offset = circumference - (scrollPercent * circumference);
+        circle.style.strokeDashoffset = offset;
+      }
+    }, { passive: true });
+
+    backToTopBtn?.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  }
+
+  // ─── Newsletter Form ─────────────────────────────────────
+  function initNewsletter() {
+    const form = document.getElementById('newsletterForm');
+    const emailInput = document.getElementById('newsletterEmail');
+
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = emailInput?.value;
+      if (email) {
+        const btn = form.querySelector('button');
+        if (btn) {
+          btn.disabled = true;
+          btn.innerHTML = '<span>Subscribed!</span> <span class="btn-icon">🎉</span>';
+          setTimeout(() => {
+            btn.disabled = false;
+            btn.innerHTML = '<span>Subscribe</span> <span class="btn-icon">✨</span>';
+            if (emailInput) emailInput.value = '';
+          }, 3000);
+        }
+      }
+    });
+  }
+
   // ─── Navbar Scroll Effect ───────────────────────────────
   function initNavbar() {
     const navbar = document.getElementById('navbar');
@@ -267,6 +404,10 @@
     initFloatingPaws();
     initCarousel();
     initScrollAnimations();
+    initBreedFilter();
+    initAccordion();
+    initScrollProgress();
+    initNewsletter();
     initNavbar();
     initMobileMenu();
     animateCounters();
