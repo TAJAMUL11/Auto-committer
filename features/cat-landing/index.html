@@ -11,6 +11,9 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- Reading Progress Bar -->
+  <div class="scroll-progress-bar" id="scrollProgressBar" aria-hidden="true"></div>
+
   <!-- Floating paw prints background -->
   <div class="paw-container" id="pawContainer" aria-hidden="true"></div>
 
@@ -25,7 +28,9 @@
         <li><a href="#hero">Home</a></li>
         <li><a href="#facts">Fun Facts</a></li>
         <li><a href="#breeds">Breeds</a></li>
+        <li><a href="#care">Care Tips</a></li>
         <li><a href="#adopt">Adopt</a></li>
+        <li><a href="#newsletter">Join Us</a></li>
       </ul>
       <div class="nav-actions">
         <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
@@ -149,84 +154,161 @@
   <!-- Breeds Section -->
   <section class="breeds-section" id="breeds">
     <div class="breeds-inner">
-    <div class="section-header">
-      <p class="section-tag">Find your match</p>
-      <h2 class="section-title">Popular Breeds</h2>
+      <div class="section-header">
+        <p class="section-tag">Find your match</p>
+        <h2 class="section-title">Popular Breeds</h2>
+      </div>
+
+      <!-- Breed Search & Filters -->
+      <div class="breed-search-container">
+        <div class="search-input-wrapper">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="breedSearch" class="search-input" placeholder="Search breeds or traits..." aria-label="Search breeds">
+        </div>
+        <div class="filter-tags" id="filterTags">
+          <button class="filter-tag active" data-filter="all">All</button>
+          <button class="filter-tag" data-filter="calm">Calm</button>
+          <button class="filter-tag" data-filter="playful">Playful</button>
+          <button class="filter-tag" data-filter="vocal">Vocal</button>
+          <button class="filter-tag" data-filter="smart">Smart</button>
+          <button class="filter-tag" data-filter="large">Large</button>
+        </div>
+      </div>
+
+      <div class="breeds-grid" id="breedsGrid">
+        <div class="breed-card" data-breed="persian" data-traits="calm,fluffy,indoor">
+          <div class="breed-emoji">🐱</div>
+          <div class="breed-info">
+            <h3>Persian</h3>
+            <p>Gentle, quiet, and affectionate — the ultimate lap cat with luxurious fur.</p>
+            <div class="breed-traits">
+              <span class="trait">Calm</span>
+              <span class="trait">Fluffy</span>
+              <span class="trait">Indoor</span>
+            </div>
+          </div>
+        </div>
+        <div class="breed-card" data-breed="siamese" data-traits="vocal,smart,social">
+          <div class="breed-emoji">😺</div>
+          <div class="breed-info">
+            <h3>Siamese</h3>
+            <p>Vocal, intelligent, and social — they'll follow you everywhere and talk nonstop.</p>
+            <div class="breed-traits">
+              <span class="trait">Vocal</span>
+              <span class="trait">Smart</span>
+              <span class="trait">Social</span>
+            </div>
+          </div>
+        </div>
+        <div class="breed-card" data-breed="mainecoon" data-traits="large,playful,friendly">
+          <div class="breed-emoji">😸</div>
+          <div class="breed-info">
+            <h3>Maine Coon</h3>
+            <p>The gentle giant — playful, dog-like personality in an impressively large package.</p>
+            <div class="breed-traits">
+              <span class="trait">Large</span>
+              <span class="trait">Playful</span>
+              <span class="trait">Friendly</span>
+            </div>
+          </div>
+        </div>
+        <div class="breed-card" data-breed="bengal" data-traits="active,athletic,exotic,playful">
+          <div class="breed-emoji">😼</div>
+          <div class="breed-info">
+            <h3>Bengal</h3>
+            <p>Wild at heart with stunning leopard-like spots — active, athletic, and adventurous.</p>
+            <div class="breed-traits">
+              <span class="trait">Active</span>
+              <span class="trait">Athletic</span>
+              <span class="trait">Exotic</span>
+            </div>
+          </div>
+        </div>
+        <div class="breed-card" data-breed="ragdoll" data-traits="docile,loving,blue-eyed,calm">
+          <div class="breed-emoji">😻</div>
+          <div class="breed-info">
+            <h3>Ragdoll</h3>
+            <p>Named for going limp when picked up — incredibly docile, loving blue-eyed beauties.</p>
+            <div class="breed-traits">
+              <span class="trait">Docile</span>
+              <span class="trait">Loving</span>
+              <span class="trait">Blue-eyed</span>
+            </div>
+          </div>
+        </div>
+        <div class="breed-card" data-breed="scottish" data-traits="sweet,unique,quiet,calm">
+          <div class="breed-emoji">🐈</div>
+          <div class="breed-info">
+            <h3>Scottish Fold</h3>
+            <p>Famous for folded ears and owl-like face — sweet-tempered and loves companionship.</p>
+            <div class="breed-traits">
+              <span class="trait">Sweet</span>
+              <span class="trait">Unique</span>
+              <span class="trait">Quiet</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="breeds-grid" id="breedsGrid">
-      <div class="breed-card" data-breed="persian">
-        <div class="breed-emoji">🐱</div>
-        <div class="breed-info">
-          <h3>Persian</h3>
-          <p>Gentle, quiet, and affectionate — the ultimate lap cat with luxurious fur.</p>
-          <div class="breed-traits">
-            <span class="trait">Calm</span>
-            <span class="trait">Fluffy</span>
-            <span class="trait">Indoor</span>
+  </section>
+
+  <!-- Care Tips Section -->
+  <section class="care-section" id="care">
+    <div class="care-inner">
+      <div class="section-header">
+        <p class="section-tag">Feline Wellness</p>
+        <h2 class="section-title">Cat Care Essentials</h2>
+      </div>
+
+      <div class="accordion" id="careAccordion">
+        <div class="accordion-item">
+          <button class="accordion-header" aria-expanded="false">
+            <span class="header-text">🥗 Nutrition & Balanced Diet</span>
+            <span class="accordion-icon">+</span>
+          </button>
+          <div class="accordion-body">
+            <div class="accordion-content">
+              <p>Cats are obligate carnivores requiring high protein and taurine. Always provide fresh, clean water and consult a vet for dietary recommendations tailored to your cat's age and activity level.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-header" aria-expanded="false">
+            <span class="header-text">🎾 Daily Enrichment & Play</span>
+            <span class="accordion-icon">+</span>
+          </button>
+          <div class="accordion-body">
+            <div class="accordion-content">
+              <p>At least 15-20 minutes of daily interactive play helps satisfy hunting instincts, prevents boredom, and maintains physical fitness. Feather wands and puzzle feeders are excellent choices.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-header" aria-expanded="false">
+            <span class="header-text">✂️ Grooming & Coat Care</span>
+            <span class="accordion-icon">+</span>
+          </button>
+          <div class="accordion-body">
+            <div class="accordion-content">
+              <p>Regular brushing reduces hairballs and keeps the coat healthy. Long-haired breeds need daily grooming, while short-haired breeds benefit from a weekly routine. Don't forget nail trims!</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-header" aria-expanded="false">
+            <span class="header-text">🏥 Preventive Health & Vets</span>
+            <span class="accordion-icon">+</span>
+          </button>
+          <div class="accordion-body">
+            <div class="accordion-content">
+              <p>Annual wellness exams, core vaccinations, and dental care are crucial. Cats are masters at hiding illness, so watch for subtle changes in appetite, litter box habits, or behavior.</p>
+            </div>
           </div>
         </div>
       </div>
-      <div class="breed-card" data-breed="siamese">
-        <div class="breed-emoji">😺</div>
-        <div class="breed-info">
-          <h3>Siamese</h3>
-          <p>Vocal, intelligent, and social — they'll follow you everywhere and talk nonstop.</p>
-          <div class="breed-traits">
-            <span class="trait">Vocal</span>
-            <span class="trait">Smart</span>
-            <span class="trait">Social</span>
-          </div>
-        </div>
-      </div>
-      <div class="breed-card" data-breed="mainecoon">
-        <div class="breed-emoji">😸</div>
-        <div class="breed-info">
-          <h3>Maine Coon</h3>
-          <p>The gentle giant — playful, dog-like personality in an impressively large package.</p>
-          <div class="breed-traits">
-            <span class="trait">Large</span>
-            <span class="trait">Playful</span>
-            <span class="trait">Friendly</span>
-          </div>
-        </div>
-      </div>
-      <div class="breed-card" data-breed="bengal">
-        <div class="breed-emoji">😼</div>
-        <div class="breed-info">
-          <h3>Bengal</h3>
-          <p>Wild at heart with stunning leopard-like spots — active, athletic, and adventurous.</p>
-          <div class="breed-traits">
-            <span class="trait">Active</span>
-            <span class="trait">Athletic</span>
-            <span class="trait">Exotic</span>
-          </div>
-        </div>
-      </div>
-      <div class="breed-card" data-breed="ragdoll">
-        <div class="breed-emoji">😻</div>
-        <div class="breed-info">
-          <h3>Ragdoll</h3>
-          <p>Named for going limp when picked up — incredibly docile, loving blue-eyed beauties.</p>
-          <div class="breed-traits">
-            <span class="trait">Docile</span>
-            <span class="trait">Loving</span>
-            <span class="trait">Blue-eyed</span>
-          </div>
-        </div>
-      </div>
-      <div class="breed-card" data-breed="scottish">
-        <div class="breed-emoji">🐈</div>
-        <div class="breed-info">
-          <h3>Scottish Fold</h3>
-          <p>Famous for folded ears and owl-like face — sweet-tempered and loves companionship.</p>
-          <div class="breed-traits">
-            <span class="trait">Sweet</span>
-            <span class="trait">Unique</span>
-            <span class="trait">Quiet</span>
-          </div>
-        </div>
-      </div>
-    </div>
     </div>
   </section>
 
@@ -262,6 +344,27 @@
     </div>
   </section>
 
+  <!-- Newsletter Section -->
+  <section class="newsletter-section" id="newsletter">
+    <div class="newsletter-card">
+      <div class="newsletter-content">
+        <span class="newsletter-emoji">💌</span>
+        <h2 class="newsletter-title">Stay Connected with Purrfect News</h2>
+        <p class="newsletter-desc">Get weekly cat care tips, adoption stories, and adorable photos delivered straight to your inbox.</p>
+        <form class="newsletter-form" id="newsletterForm">
+          <div class="input-group">
+            <input type="email" id="newsletterEmail" placeholder="Enter your email address..." required aria-label="Email address">
+            <button type="submit" class="btn btn-primary">
+              <span>Subscribe</span>
+              <span class="btn-icon">✨</span>
+            </button>
+          </div>
+        </form>
+        <p class="newsletter-disclaimer">No spam, ever. Unsubscribe with 1 click anytime.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- Footer -->
   <footer class="footer">
     <div class="footer-content">
@@ -273,6 +376,14 @@
       <p class="footer-copy">&copy; 2026 Whiskers & Paws. All rights reserved.</p>
     </div>
   </footer>
+
+  <!-- Back to Top Button -->
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <svg class="progress-ring" width="48" height="48" viewBox="0 0 48 48">
+      <circle class="progress-ring-circle" stroke="var(--accent-1)" stroke-width="3" fill="transparent" r="20" cx="24" cy="24"/>
+    </svg>
+    <span class="arrow">↑</span>
+  </button>
 
   <script src="script.js"></script>
 </body>
