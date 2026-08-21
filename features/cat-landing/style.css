@@ -833,7 +833,7 @@ a {
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
   cursor: pointer;
-  transition: all var(--transition-smooth);
+  transition: transform var(--transition-bounce), box-shadow var(--transition-smooth), border-color var(--transition-fast);
   opacity: 0;
   transform: translateY(30px);
 }
@@ -848,9 +848,9 @@ a {
 }
 
 .breed-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
-  border-color: rgba(196, 77, 255, 0.2);
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(196, 77, 255, 0.15);
+  border-color: var(--accent-1);
 }
 
 .breed-emoji {
