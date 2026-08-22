@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="A beautiful landing page dedicated to cats — explore fun facts, adopt, and celebrate our feline friends.">
+  <meta name="description" content="A beautiful landing page dedicated to cats — explore fun facts, adopt, take the matchmaker quiz, and celebrate our feline friends.">
   <title>Whiskers & Paws — Cat Landing Page</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,6 +29,7 @@
         <li><a href="#facts">Fun Facts</a></li>
         <li><a href="#breeds">Breeds</a></li>
         <li><a href="#care">Care Tips</a></li>
+        <li><a href="#quiz">Quiz</a></li>
         <li><a href="#adopt">Adopt</a></li>
         <li><a href="#newsletter">Join Us</a></li>
       </ul>
@@ -177,6 +178,7 @@
 
       <div class="breeds-grid" id="breedsGrid">
         <div class="breed-card" data-breed="persian" data-traits="calm,fluffy,indoor">
+          <button class="fav-btn" aria-label="Save to favorites" data-breed-id="persian">🤍</button>
           <div class="breed-emoji">🐱</div>
           <div class="breed-info">
             <h3>Persian</h3>
@@ -189,6 +191,7 @@
           </div>
         </div>
         <div class="breed-card" data-breed="siamese" data-traits="vocal,smart,social">
+          <button class="fav-btn" aria-label="Save to favorites" data-breed-id="siamese">🤍</button>
           <div class="breed-emoji">😺</div>
           <div class="breed-info">
             <h3>Siamese</h3>
@@ -201,6 +204,7 @@
           </div>
         </div>
         <div class="breed-card" data-breed="mainecoon" data-traits="large,playful,friendly">
+          <button class="fav-btn" aria-label="Save to favorites" data-breed-id="mainecoon">🤍</button>
           <div class="breed-emoji">😸</div>
           <div class="breed-info">
             <h3>Maine Coon</h3>
@@ -213,6 +217,7 @@
           </div>
         </div>
         <div class="breed-card" data-breed="bengal" data-traits="active,athletic,exotic,playful">
+          <button class="fav-btn" aria-label="Save to favorites" data-breed-id="bengal">🤍</button>
           <div class="breed-emoji">😼</div>
           <div class="breed-info">
             <h3>Bengal</h3>
@@ -225,6 +230,7 @@
           </div>
         </div>
         <div class="breed-card" data-breed="ragdoll" data-traits="docile,loving,blue-eyed,calm">
+          <button class="fav-btn" aria-label="Save to favorites" data-breed-id="ragdoll">🤍</button>
           <div class="breed-emoji">😻</div>
           <div class="breed-info">
             <h3>Ragdoll</h3>
@@ -237,6 +243,7 @@
           </div>
         </div>
         <div class="breed-card" data-breed="scottish" data-traits="sweet,unique,quiet,calm">
+          <button class="fav-btn" aria-label="Save to favorites" data-breed-id="scottish">🤍</button>
           <div class="breed-emoji">🐈</div>
           <div class="breed-info">
             <h3>Scottish Fold</h3>
@@ -312,6 +319,24 @@
     </div>
   </section>
 
+  <!-- Cat Matchmaker Quiz Section -->
+  <section class="quiz-section" id="quiz">
+    <div class="quiz-inner">
+      <div class="section-header">
+        <p class="section-tag">Interactive Matchmaker</p>
+        <h2 class="section-title">Which Cat Breed Fits Your Lifestyle?</h2>
+      </div>
+      <div class="quiz-card" id="quizCard">
+        <div class="quiz-progress">
+          <div class="quiz-progress-fill" id="quizProgressFill"></div>
+        </div>
+        <div class="quiz-body" id="quizBody">
+          <!-- Dynamically populated by script.js -->
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Adopt Section -->
   <section class="adopt-section" id="adopt">
     <div class="adopt-content">
@@ -337,10 +362,10 @@
           <p>Bring your new furry friend home and start making memories.</p>
         </div>
       </div>
-      <a href="#" class="btn btn-primary btn-large">
+      <button class="btn btn-primary btn-large" id="adoptBtn">
         <span>Find Your Cat</span>
         <span class="btn-icon">❤️</span>
-      </a>
+      </button>
     </div>
   </section>
 
