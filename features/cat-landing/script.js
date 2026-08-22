@@ -2,7 +2,8 @@
  * Whiskers & Paws — Cat Landing Page Scripts
  * Handles: typing animation, stats counter, carousel, theme toggle,
  *          floating paws, scroll animations, breed filter/search,
- *          accordion tips, scroll progress, back to top button, and newsletter form.
+ *          accordion tips, interactive quiz, breed favoriting,
+ *          confetti effects, scroll progress, back to top, and newsletter form.
  */
 
 (function () {
@@ -90,7 +91,6 @@
 
     if (!track || !cards.length || !dotsContainer) return;
 
-    // Create dots
     cards.forEach((_, i) => {
       const dot = document.createElement('button');
       dot.classList.add('carousel-dot');
@@ -104,7 +104,6 @@
       currentIndex = index;
       track.style.transform = `translateX(-${currentIndex * 100}%)`;
 
-      // Update dots
       document.querySelectorAll('.carousel-dot').forEach((dot, i) => {
         dot.classList.toggle('active', i === currentIndex);
       });
@@ -125,10 +124,9 @@
       autoPlayInterval = setInterval(next, 5000);
     }
 
-    prevBtn.addEventListener('click', prev);
-    nextBtn.addEventListener('click', next);
+    prevBtn?.addEventListener('click', prev);
+    nextBtn?.addEventListener('click', next);
 
-    // Keyboard navigation
     document.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowLeft') prev();
       if (e.key === 'ArrowRight') next();
@@ -143,7 +141,6 @@
     const icon = toggle?.querySelector('.toggle-icon');
     if (!toggle || !icon) return;
 
-    // Check saved preference
     const savedTheme = localStorage.getItem('cat-landing-theme');
     if (savedTheme === 'dark') {
       document.documentElement.setAttribute('data-theme', 'dark');
@@ -182,18 +179,15 @@
       paw.style.animationDelay = Math.random() * 2 + 's';
       container.appendChild(paw);
 
-      // Remove after animation completes
       setTimeout(() => {
         paw.remove();
       }, 18000);
     }
 
-    // Initial batch
     for (let i = 0; i < 8; i++) {
       setTimeout(spawnPaw, i * 600);
     }
 
-    // Continuous spawning
     setInterval(spawnPaw, 2500);
   }
 
@@ -267,7 +261,6 @@
       header?.addEventListener('click', () => {
         const isOpen = item.classList.contains('active');
 
-        // Close all other items
         items.forEach((other) => {
           if (other !== item) {
             other.classList.remove('active');
@@ -277,7 +270,6 @@
           }
         });
 
-        // Toggle current item
         if (isOpen) {
           item.classList.remove('active');
           header.setAttribute('aria-expanded', 'false');
@@ -291,24 +283,184 @@
     });
   }
 
+  // ─── Breed Favorites (LocalStorage) ─────────────────────
+  function initFavorites() {
+    const favButtons = document.querySelectorAll('.fav-btn');
+    const savedFavs = JSON.parse(localStorage.getItem('cat-favorites') || '[]');
+
+    favButtons.forEach((btn) => {
+      const breedId = btn.getAttribute('data-breed-id');
+      if (savedFavs.includes(breedId)) {
+        btn.classList.add('active');
+        btn.textContent = '❤️';
+      }
+
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        let currentFavs = JSON.parse(localStorage.getItem('cat-favorites') || '[]');
+        const isFav = currentFavs.includes(breedId);
+
+        if (isFav) {
+          currentFavs = currentFavs.filter((id) => id !== breedId);
+          btn.classList.remove('active');
+          btn.textContent = '🤍';
+        } else {
+          currentFavs.push(breedId);
+          btn.classList.add('active');
+          btn.textContent = '❤️';
+        }
+        localStorage.setItem('cat-favorites', JSON.stringify(currentFavs));
+      });
+    });
+  }
+
+  // ─── Interactive Quiz ────────────────────────────────────
+  function initQuiz() {
+    const quizBody = document.getElementById('quizBody');
+    const progressFill = document.getElementById('quizProgressFill');
+    if (!quizBody || !progressFill) return;
+
+    const questions = [
+      {
+        question: "What is your ideal weekend vibe?",
+        options: [
+          { label: "Relaxing on the couch with a book", breed: "persian", emoji: "🐱" },
+          { label: "Chatting and catching up with friends", breed: "siamese", emoji: "😺" },
+          { label: "Hiking or playing energetic games", breed: "bengal", emoji: "😼" },
+          { label: "Hanging out casually with family", breed: "mainecoon", emoji: "😸" }
+        ]
+      },
+      {
+        question: "How much attention does your future cat need?",
+        options: [
+          { label: "Constant affection & vocal chatter", breed: "siamese", emoji: "🗣️" },
+          { label: "Gentle cuddling when in the mood", breed: "ragdoll", emoji: "🧸" },
+          { label: "Independent & quietly loving", breed: "scottish", emoji: "🦉" },
+          { label: "High energy interactive play", breed: "bengal", emoji: "⚡" }
+        ]
+      },
+      {
+        question: "What cat coat type do you prefer?",
+        options: [
+          { label: "Super fluffy & glamorous coat", breed: "persian", emoji: "✨" },
+          { label: "Large & majestic mane", breed: "mainecoon", emoji: "🦁" },
+          { label: "Sleek & exotic leopard spots", breed: "bengal", emoji: "🐆" },
+          { label: "Soft, unique folded ears", breed: "scottish", emoji: "🎀" }
+        ]
+      }
+    ];
+
+    const results = {
+      persian: { name: "Persian", emoji: "🐱", desc: "You matched with the Persian! Gentle, quiet, and peaceful — perfect for cozy homebodies." },
+      siamese: { name: "Siamese", emoji: "😺", desc: "You matched with the Siamese! Vocal, social, and intelligent — your companion for endless chats." },
+      mainecoon: { name: "Maine Coon", emoji: "😸", desc: "You matched with the Maine Coon! Friendly, playful, and majestic — a true gentle giant." },
+      bengal: { name: "Bengal", emoji: "😼", desc: "You matched with the Bengal! Energetic, exotic, and athletic — built for adventure lovers." },
+      ragdoll: { name: "Ragdoll", emoji: "😻", desc: "You matched with the Ragdoll! Docile, affectionate, and sweet — the ultimate cuddler." },
+      scottish: { name: "Scottish Fold", emoji: "🐈", desc: "You matched with the Scottish Fold! Charming, sweet-tempered, and endlessly cute." }
+    };
+
+    let currentStep = 0;
+    let scores = {};
+
+    function renderQuestion() {
+      const q = questions[currentStep];
+      progressFill.style.width = `${((currentStep + 1) / questions.length) * 100}%`;
+
+      quizBody.innerHTML = `
+        <h3 class="quiz-question-title">${q.question}</h3>
+        <div class="quiz-options">
+          ${q.options.map((opt, i) => `
+            <button class="quiz-option-btn" data-index="${i}">
+              <span>${opt.emoji} ${opt.label}</span>
+            </button>
+          `).join('')}
+        </div>
+      `;
+
+      quizBody.querySelectorAll('.quiz-option-btn').forEach((btn, idx) => {
+        btn.addEventListener('click', () => {
+          const selectedBreed = q.options[idx].breed;
+          scores[selectedBreed] = (scores[selectedBreed] || 0) + 1;
+          currentStep++;
+
+          if (currentStep < questions.length) {
+            renderQuestion();
+          } else {
+            showResult();
+          }
+        });
+      });
+    }
+
+    function showResult() {
+      let topBreed = 'persian';
+      let maxScore = -1;
+      for (const [breed, count] of Object.entries(scores)) {
+        if (count > maxScore) {
+          maxScore = count;
+          topBreed = breed;
+        }
+      }
+
+      const res = results[topBreed] || results.persian;
+      progressFill.style.width = '100%';
+
+      quizBody.innerHTML = `
+        <div class="quiz-result">
+          <span class="quiz-result-emoji">${res.emoji}</span>
+          <h3 class="quiz-result-title">${res.name}</h3>
+          <p class="quiz-result-desc">${res.desc}</p>
+          <button class="btn btn-primary" id="quizRestart">
+            <span>Take Quiz Again</span>
+            <span class="btn-icon">🔄</span>
+          </button>
+        </div>
+      `;
+
+      triggerConfetti();
+
+      document.getElementById('quizRestart')?.addEventListener('click', () => {
+        currentStep = 0;
+        scores = {};
+        renderQuestion();
+      });
+    }
+
+    renderQuestion();
+  }
+
+  // ─── Particle Confetti Effect ────────────────────────────
+  function triggerConfetti() {
+    const colors = ['#ff6b9d', '#c44dff', '#ff8c42', '#6e5cff', '#ffd166'];
+    for (let i = 0; i < 40; i++) {
+      const p = document.createElement('div');
+      p.classList.add('confetti-particle');
+      p.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+      p.style.left = (Math.random() * 100) + 'vw';
+      p.style.top = (window.scrollY + Math.random() * 300) + 'px';
+      p.style.animationDuration = (1.5 + Math.random() * 1.5) + 's';
+      document.body.appendChild(p);
+
+      setTimeout(() => p.remove(), 3000);
+    }
+  }
+
   // ─── Scroll Progress & Back to Top ─────────────────────
   function initScrollProgress() {
     const progressBar = document.getElementById('scrollProgressBar');
     const backToTopBtn = document.getElementById('backToTop');
     const circle = document.querySelector('.progress-ring-circle');
-    const circumference = 125.6; // 2 * PI * r (r=20)
+    const circumference = 125.6;
 
     window.addEventListener('scroll', () => {
       const scrollTop = window.scrollY;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) : 0;
 
-      // Update top progress bar
       if (progressBar) {
         progressBar.style.width = `${scrollPercent * 100}%`;
       }
 
-      // Update back-to-top button
       if (backToTopBtn) {
         if (scrollTop > 300) {
           backToTopBtn.classList.add('visible');
@@ -331,10 +483,11 @@
     });
   }
 
-  // ─── Newsletter Form ─────────────────────────────────────
+  // ─── Newsletter & Adoption Buttons ──────────────────────
   function initNewsletter() {
     const form = document.getElementById('newsletterForm');
     const emailInput = document.getElementById('newsletterEmail');
+    const adoptBtn = document.getElementById('adoptBtn');
 
     form?.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -344,6 +497,7 @@
         if (btn) {
           btn.disabled = true;
           btn.innerHTML = '<span>Subscribed!</span> <span class="btn-icon">🎉</span>';
+          triggerConfetti();
           setTimeout(() => {
             btn.disabled = false;
             btn.innerHTML = '<span>Subscribe</span> <span class="btn-icon">✨</span>';
@@ -352,6 +506,10 @@
         }
       }
     });
+
+    adoptBtn?.addEventListener('click', () => {
+      triggerConfetti();
+    });
   }
 
   // ─── Navbar Scroll Effect ───────────────────────────────
@@ -359,15 +517,12 @@
     const navbar = document.getElementById('navbar');
     if (!navbar) return;
 
-    let lastScroll = 0;
     window.addEventListener('scroll', () => {
-      const currentScroll = window.scrollY;
-      navbar.classList.toggle('scrolled', currentScroll > 50);
-      lastScroll = currentScroll;
+      navbar.classList.toggle('scrolled', window.scrollY > 50);
     }, { passive: true });
   }
 
-  // ─── Mobile Menu ────────────────────────────────────────
+  // ─── Mobile Menu ─────────────���──────────────────────────
   function initMobileMenu() {
     const btn = document.getElementById('mobileMenuBtn');
     const links = document.querySelector('.nav-links');
@@ -388,7 +543,6 @@
       links.style.borderBottom = '1px solid var(--glass-border)';
     });
 
-    // Close on link click
     links.querySelectorAll('a').forEach((link) => {
       link.addEventListener('click', () => {
         if (window.innerWidth <= 900) {
@@ -406,6 +560,8 @@
     initScrollAnimations();
     initBreedFilter();
     initAccordion();
+    initFavorites();
+    initQuiz();
     initScrollProgress();
     initNewsletter();
     initNavbar();
@@ -414,7 +570,6 @@
     runTypingLoop();
   }
 
-  // Wait for DOM
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
